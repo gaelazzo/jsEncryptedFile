@@ -64,15 +64,20 @@ EncryptedFile.prototype = {
                 x = fs.readFileSync(this.encryptedFileName, {encoding: 'utf8'});
                 txtFile = this.doDecrypt(x);
                 if (this.decrypt) {
-                    fs.writeFileSync(this.fileName, this.data);
+                    fs.writeFileSync(this.fileName, txtFile);
                 }
             }
             //if was asked to decrypt, write the plain file
         } else {
             if (fs.existsSync(this.fileName)) {
                 txtFile = fs.readFileSync(this.fileName).toString();
-                //in debug mode always write the encrypted version
-                fs.writeFileSync(this.encryptedFileName, this.doDecrypt(txtFile));
+            }
+            else {
+                if (fs.existsSync(this.encryptedFileName)) {
+                    x = fs.readFileSync(this.encryptedFileName).toString();
+                    txtFile = this.doDecrypt(x);
+                }
+
             }
         }
         this.data = JSON.parse(txtFile);
@@ -90,7 +95,9 @@ EncryptedFile.prototype = {
                 fs.writeFileSync(this.fileName, txtFile);
             }
         } else {
-            fs.writeFileSync(this.fileName, txtFile);
+            if (this.fileName){
+                fs.writeFileSync(this.fileName, txtFile);
+            }
             fs.writeFileSync(this.encryptedFileName, this.doEncrypt(txtFile).toString());
         }
     }

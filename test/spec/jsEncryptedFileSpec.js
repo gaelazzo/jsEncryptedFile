@@ -195,6 +195,19 @@ describe('EncryptedFile', function () {
     it('plain file should not be created', function () {
       expect(fs.existsSync('data/enctest.txt')).toBeFalsy();
     });
+
+
+    it('After writing crypted, reading will get that object', function () {
+      encFileB = new EncryptedFile({encryptedFileName: 'data/testCrypt.bin'});
+      var o = {a: 'a_value', b: 12};
+      encFileB.write(o);
+      var encFileB2 = new EncryptedFile({encryptedFileName: 'data/testCrypt.bin'});
+      var o2 = encFileB2.read();
+      expect(o).toEqual(o2);
+      if (fs.existsSync('data/testcrypt.txt')) {
+        fs.unlinkSync('data/testcrypt.txt');
+      }
+    });
   });
 
 });
