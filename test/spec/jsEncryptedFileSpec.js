@@ -2,26 +2,20 @@
 /*globals it,expect,describe,jasmine,beforeEach,afterEach */
 var fs = require('fs');
 
-var encryptedFileFactory = require('../../src/jsEncryptedFile');
+var EncryptedFile = require('../../src/jsEncryptedFile');
 
-describe('EncryptedFile Factory', function () {
-  var EncryptedFile = encryptedFileFactory();
+describe('EncryptedFile', function () {
 
   it('should be defined', function () {
-    expect(encryptedFileFactory).toBeDefined();
+    expect(EncryptedFile).toBeDefined();
   });
 
   it('should be a function', function () {
-    expect(encryptedFileFactory).toEqual(jasmine.any(Function));
-  });
-
-  it('should return a function', function () {
-    var EncryptedFile = encryptedFileFactory();
     expect(EncryptedFile).toEqual(jasmine.any(Function));
   });
 
-  it('should return a constructor', function () {
-    var EncryptedFile = encryptedFileFactory();
+
+  it('should be a constructor', function () {
     expect(EncryptedFile.prototype.constructor).toBe(EncryptedFile);
   });
 
