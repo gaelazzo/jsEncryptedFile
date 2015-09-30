@@ -1,0 +1,41 @@
+{
+  "name": "jsEncryptedFile",
+  "version": "1.0.1",
+  "description": "Facilities to access a database without knowing exactly the database type or implementation details",
+  "main": "src/jsEncryptedFile.js",
+  "scripts": {
+    "test": "grunt test"
+  },
+  "dependencies": {
+    "crypto-js": "^3.1.2-5"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.0",
+    "grunt-contrib-watch": "^0.6.1",
+    "grunt-contrib-yuidoc": "^0.7.0",
+    "jasmine-core": "^2.2.0",
+    "jasmine-node": "2.0.0-beta4",
+    "grunt-jasmine-node-new": "^0.3.2",
+    "jasmine-collection-matchers":"*",
+    "load-grunt-tasks": "^3.1.0",
+    "time-grunt": "^1.0.0"
+
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gaelazzo/jsEncryptedFile"
+  },
+  "keywords": [
+    "query",
+    "database",
+    "javascript",
+    "sql",
+    "multiple table"
+  ],
+  "author": "Gaetano Lazzo",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gaelazzo/jsEncryptedFile/issues"
+  },
+  "homepage": "https://github.com/gaelazzo/jsEncryptedFile#readme"
+}
