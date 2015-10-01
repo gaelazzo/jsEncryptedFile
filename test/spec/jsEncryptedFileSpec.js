@@ -25,22 +25,22 @@ describe('EncryptedFile', function () {
     var encFile;
     var encFileEmpty;
     var encFileB;
-    var options = {fileName: 'data/test.txt', encryptedFileName: 'data/test.bin', encrypt: false};
+    var options = {fileName: 'test/test.txt', encryptedFileName: 'test/test.bin', encrypt: false};
 
     beforeEach(function () {
 
-      var EmptyOptions = {fileName: 'data/notexistent.txt', encryptedFileName: 'data/notexistent.bin', encrypt: false};
+      var EmptyOptions = {fileName: 'test/notexistent.txt', encryptedFileName: 'test/notexistent.bin', encrypt: false};
       encFile = new EncryptedFile(options);
       encFileEmpty = new EncryptedFile(EmptyOptions);
 
     });
 
     afterEach(function(){
-      if (fs.existsSync('data/test.bin')) {
-        fs.unlinkSync('data/test.bin');
+      if (fs.existsSync('test/test.bin')) {
+        fs.unlinkSync('test/test.bin');
       };
-      if (fs.existsSync('data/test.txt')) {
-        fs.unlinkSync('data/test.txt');
+      if (fs.existsSync('test/test.txt')) {
+        fs.unlinkSync('test/test.txt');
       };
     });
 
@@ -103,16 +103,16 @@ describe('EncryptedFile', function () {
     var encFile;
     var encFileEmpty;
     var encFileB;
-    var options = {fileName: 'data/enctest.txt', encryptedFileName: 'data/enctest.bin', encrypt: true, decrypt: false};
+    var options = {fileName: 'test/enctest.txt', encryptedFileName: 'test/enctest.bin', encrypt: true, decrypt: false};
 
     beforeEach(function () {
 
-      var emptyOptions = {fileName: 'data/enctest.txt',
-        encryptedFileName: 'data/notexistentcr.bin',
+      var emptyOptions = {fileName: 'test/enctest.txt',
+        encryptedFileName: 'test/notexistentcr.bin',
         encrypt: true,
         decrypt: false};
-      if (fs.existsSync('data/enctest.txt')) {
-        fs.unlinkSync('data/enctest.txt');
+      if (fs.existsSync('test/enctest.txt')) {
+        fs.unlinkSync('test/enctest.txt');
       }
 
       encFile = new EncryptedFile(options);
@@ -121,9 +121,9 @@ describe('EncryptedFile', function () {
     });
 
     afterEach(function () {
-      expect(fs.existsSync('data/enctest.txt')).toBeFalsy();
-      if (fs.existsSync('data/enctest.bin')) {
-        fs.unlinkSync('data/enctest.bin');
+      expect(fs.existsSync('test/enctest.txt')).toBeFalsy();
+      if (fs.existsSync('test/enctest.bin')) {
+        fs.unlinkSync('test/enctest.bin');
       }
     });
 
@@ -193,19 +193,19 @@ describe('EncryptedFile', function () {
     });
 
     it('plain file should not be created', function () {
-      expect(fs.existsSync('data/enctest.txt')).toBeFalsy();
+      expect(fs.existsSync('test/enctest.txt')).toBeFalsy();
     });
 
 
     it('After writing crypted, reading will get that object', function () {
-      encFileB = new EncryptedFile({encryptedFileName: 'data/testCrypt.bin'});
+      encFileB = new EncryptedFile({encryptedFileName: 'test/testCrypt.bin'});
       var o = {a: 'a_value', b: 12};
       encFileB.write(o);
-      var encFileB2 = new EncryptedFile({encryptedFileName: 'data/testCrypt.bin'});
+      var encFileB2 = new EncryptedFile({encryptedFileName: 'test/testCrypt.bin'});
       var o2 = encFileB2.read();
       expect(o).toEqual(o2);
-      if (fs.existsSync('data/testcrypt.txt')) {
-        fs.unlinkSync('data/testcrypt.txt');
+      if (fs.existsSync('test/testCrypt.bin')) {
+        fs.unlinkSync('test/testCrypt.bin');
       }
     });
   });

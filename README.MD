@@ -25,7 +25,14 @@ it is also possible to set a default for this value, invoking
 
 ## setDefaultSecret(secret) ##
 so subsequent calls to Encrypted() will use that value
+example:
 
+    setDefaultSecret({
+    				key: C.enc.Hex.parse('0001020304050607'),
+    				iv: C.enc.Hex.parse('08090a0b0c0d0e0f'),
+    				pwd: 'abs!sds28a'
+    });
+    
 ## read() ##
 Reads the file and returns the data read. If data has already been read, returns the in-memory instance of the read data
 

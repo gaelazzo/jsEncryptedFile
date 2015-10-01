@@ -12,6 +12,10 @@ var defaultSecret= {
 /**
  * Encriptor/decriptor class
  * @class EncryptedFile
+ **/
+
+ /**
+ * @method EncryptedFile
  * @param options
  * @param {string} [options.fileName] Name of the clean file to encrypt
  * @param {string} [options.encryptedFileName] name of the encrypted file
@@ -37,6 +41,16 @@ function EncryptedFile(options) {
 }
 
 EncryptedFile.prototype = {
+    /**
+     * Set default secret for subsequent invocation of the constructor
+     * @method setDefaultSecret
+     * @param secret
+     * @example
+     * setDefaultSecret({key: C.enc.Hex.parse('0001020304050607'),
+     *                   iv: C.enc.Hex.parse('08090a0b0c0d0e0f'),
+     *                   pwd: 'abs!sds28a'
+     *                  });
+     */
     setDefaultSecret: function(secret){
         defaultSecret = secret;
     },
@@ -48,7 +62,7 @@ EncryptedFile.prototype = {
     },
     constructor: EncryptedFile,
     /**
-     *
+     * Read data from file
      * @method read
      * @returns {null|*}
      */
@@ -82,6 +96,11 @@ EncryptedFile.prototype = {
         this.data = JSON.parse(txtFile);
         return this.data;
     },
+    /**
+     * Persist the data writing it in the linked file
+     * @method write
+     * @returns {null|*}
+     */
     write: function (newData) {
         if (newData !== undefined) {
             this.data = newData;
