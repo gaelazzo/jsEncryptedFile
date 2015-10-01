@@ -3,14 +3,11 @@
 
 var fs = require("fs");
 var C = require('crypto-js');
-
-var config = process.env.APP_CFG ? require(require('path').normalize(__dirname + '/../../..' + process.env.APP_CFG)) : {};
-var secret = config.secret || {
-        key: C.enc.Hex.parse('0001020304050607'),
-        iv: C.enc.Hex.parse('08090a0b0c0d0e0f'),
-        pwd: 'abs!sds28a'
-    };
-
+var defaultSecret= {
+    key: C.enc.Hex.parse('0001020304050607'),
+    iv: C.enc.Hex.parse('08090a0b0c0d0e0f'),
+    pwd: 'abs!sds28a'
+};
 
 /**
  * Encriptor/decriptor class
@@ -25,11 +22,10 @@ var secret = config.secret || {
  * @constructor
  */
 function EncryptedFile(options) {
-
     if (this.constructor !== EncryptedFile) {
         return new EncryptedFile(options);
     }
-    var secr = options? (options.secret || secret) :secret;
+    var secr = options? (options.secret || defaultSecret) :defaultSecret;
 
     this.trDes = C.algo.TripleDES.createEncryptor(secr.key, {iv: secr.iv});
     this.mySecret = C.SHA3(secr.pwd).toString(C.enc.base64);
@@ -41,6 +37,9 @@ function EncryptedFile(options) {
 }
 
 EncryptedFile.prototype = {
+    setDefaultSecret: function(secret){
+        defaultSecret = secret;
+    },
     doEncrypt: function (mess) {
         return C.TripleDES.encrypt(mess, this.mySecret).toString();
     },
