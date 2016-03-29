@@ -1,2 +1,8 @@
 /test/db.json
 .idea
+doc
+.ntvs_analysis.dat
+node_modules
+*.suo
+jsEncriptedFile.njsproj
+jsEncriptedFile.sln
