@@ -1,9 +1,9 @@
 "use strict";
 /*jslint node: true */
 
-var fs = require("fs");
-var C = require('crypto-js');
-var defaultSecret= {
+const fs = require("fs");
+const C = require('crypto-js');
+let defaultSecret = {
     key: C.enc.Hex.parse('0001020304050607'),
     iv: C.enc.Hex.parse('08090a0b0c0d0e0f'),
     pwd: 'abs!sds28a'
@@ -19,8 +19,8 @@ var defaultSecret= {
  * @param options
  * @param {string} [options.fileName] Name of the clean file to encrypt
  * @param {string} [options.encryptedFileName] name of the encrypted file
- * @param {bool} options.encrypt true if the file has to be encrypted
- * @param {bool} options.decrypt true if the file has to be decrypted
+ * @param {boolean} options.encrypt true if the file has to be encrypted
+ * @param {boolean} options.decrypt true if the file has to be decrypted
  * @param {object} [options.secret] object containing key,iv,pwd to replace the config
  * @returns {EncryptedFile}
  * @constructor
@@ -29,10 +29,10 @@ function EncryptedFile(options) {
     if (this.constructor !== EncryptedFile) {
         return new EncryptedFile(options);
     }
-    var secr = options? (options.secret || defaultSecret) :defaultSecret;
+    const secret = options ? (options.secret || defaultSecret) : defaultSecret;
 
-    this.trDes = C.algo.TripleDES.createEncryptor(secr.key, {iv: secr.iv});
-    this.mySecret = C.SHA3(secr.pwd).toString(C.enc.base64);
+    this.trDes = C.algo.TripleDES.createEncryptor(secret.key, {iv: secret.iv});
+    this.mySecret = C.SHA3(secret.pwd).toString(C.enc.base64);
     this.fileName = options.fileName;
     this.encryptedFileName = options.encryptedFileName || options.fileName + '.bin';
     this.encrypt = options.encrypt;
@@ -70,7 +70,7 @@ EncryptedFile.prototype = {
         if (this.data) {
             return this.data;
         }
-        var txtFile = "{}", x;
+        let txtFile = "{}", x;
 
         if (this.encrypt) {
             if (fs.existsSync(this.encryptedFileName)) {
@@ -105,7 +105,7 @@ EncryptedFile.prototype = {
         if (newData !== undefined) {
             this.data = newData;
         }
-        var txtFile = JSON.stringify(this.data);
+        const txtFile = JSON.stringify(this.data);
 
         if (this.encrypt) {
             fs.writeFileSync(this.encryptedFileName, this.doEncrypt(txtFile));
