@@ -52,3 +52,5 @@ Usage is very simple, for example
       var o2 = encFileB2.read();
       expect(o).toEqual(o2);
     });
+    
+![](https://travis-ci.org/gaelazzo/jsEncryptedFile.svg?branch=master)     
